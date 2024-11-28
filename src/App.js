@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+
+import React, { useState } from "react";
+import Home from "./components/Home";
+import Calculations from "./components/Calculations";
 
 function App() {
+  const [numCalculations, setNumCalculations] = useState(20);
+  const [isCalculating, setIsCalculating] = useState(false);
+
+  const startCalculations = (number) => {
+    setNumCalculations(number);
+    setIsCalculating(true);
+  };
+
+  const goHome = () => {
+    setIsCalculating(false);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {isCalculating ? (
+        <Calculations numCalculations={numCalculations} onHome={goHome} />
+      ) : (
+        <Home onStart={startCalculations} />
+      )}
     </div>
   );
 }
